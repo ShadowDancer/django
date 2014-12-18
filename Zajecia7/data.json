@@ -1,0 +1,10 @@
+[
+  {
+    "model": "Zajecia7.blog.Account",
+    "pk": 1,
+    "fields": {
+      "owner": "Test",
+      "balance": "31"
+    }
+  }
+]

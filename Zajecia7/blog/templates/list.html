@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="text-align:center;">
+    <h3>Witaj {{ user.id}}<br>
+        Administracja</h3>
+
+</div>
+ 
+    <table border="1">    
+	{% for data in user_data %}
+            <tr>
+                <div class="account">
+                    <td><div>{{ data.1.owner }}</div></td>
+                    <td><div>{{ data.1.balance }}</div></td>
+                </div>
+            </tr>
+    {% endfor %}
+    </table>
+
+ 
+{% endblock %}
