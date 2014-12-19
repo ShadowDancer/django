@@ -1,22 +1,93 @@
 {% extends "base.html" %}
+{% block head %}
+<script>
+function inputClean() {
+  var x=document.getElementsByTagName("input"); // plural
+
+  for(var i = 0; i < x.length; i++) {
+    if(x[i].id == "type")  
+    {
+        x[i].value = "";
+    }
+    else if(x[i].id == "number")  
+    {
+         x[i].min = 1;  
+         if(x[i].value < 0)
+         {
+             x[i].value = 0;   
+         }
+    }
+  }
+ }
+                              
+ function inputAdmin() {
+  var x=document.getElementsByTagName("input"); // plural
+
+  for(var i = 0; i < x.length; i++) {
+    if(x[i].id == "type")  
+    {
+        x[i].value = "admin";
+    }
+    else if(x[i].id == "number")  
+    {
+         x[i].min = -10000;   
+    }
+  }
+     
+     
+     
+ }
+    
+    
+    </script>
+{% endblock %}
 {% block content %}
 
-<div style="text-align:center;">
-    <h3>Witaj {{ user.id}}<br>
-        Administracja</h3>
 
-</div>
- 
+
+	<h1>Lista użytkowników:</h1>
+    <br>
+    <font color="red">{{ error }}</font>
+        
+    {% if user.is_superuser %}    
+    <h3>
+    Tryb:
+    [<input type=radio value=transfer name=mode onchange="inputClean();" checked> Przelew]  
+    [<input type=radio value=admin name=mode onchange="inputAdmin();"> Doładowanie] <br>
+	</h3>
+    {% endif %}   
+
     <table border="1">    
+            <tr  valign="middle">
+                <td><b>Użytkownik</b></td>
+                {% if user.is_authenticated %}  
+                {% if user.is_superuser %}      
+                <td><b>Stan konta</b></td>
+                {% endif %}
+                <td><b>Szybki przelew</b></td>
+                {% endif %}
+            </tr>
 	{% for data in user_data %}
-            <tr>
-                <div class="account">
-                    <td><div>{{ data.1.owner }}</div></td>
-                    <td><div>{{ data.1.balance }}</div></td>
-                </div>
+            <tr  valign="middle">
+                <td><div>{{ data.1.owner }}</div></td>
+            {% if user.is_authenticated %}    
+            {% if user.is_superuser %}    
+                <td><div>{{ data.1.balance }}</div></td>
+            {% endif %}
+            <td valign="middle">
+                <form action="" method="post">
+                     {% csrf_token %}
+                    <input type=hidden name=owner value={{ data.1.owner }}>
+                    <input id=number type=number name=amount min="1" max="10000" step="1" value="1">
+                    <input id=type type=hidden name=mode value="">
+                    <input id=title type=hidden name=title value="">
+                    <input type=submit value=Ok onclick="getTitle('{{data.1.owner}}')">
+                </form>
+            </td>
+                
+            {% endif %}
             </tr>
     {% endfor %}
     </table>
-
  
 {% endblock %}

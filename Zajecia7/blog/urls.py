@@ -7,11 +7,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    (r'^$', TemplateView.as_view(template_name="main_page.html")),
+    (r'^$', redirect_page),
     (r'^login/$',login_page),
     (r'^register/$',register_page),
     (r'^logout/$',logout_page),
-    (r'^$', main_page),
-    (r'^main/$', main_page),
+    (r'^/$', redirect_page),
+    (r'^account/$', account_page),
+    (r'^transfer/$', transfer_page),
     (r'^list/$', list_page),
 )

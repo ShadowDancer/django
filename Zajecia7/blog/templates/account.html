@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+Stan konta:
+<table border="1">    
+    <tr>
+        <td><div>{{ account.owner }}</div></td>
+        <td><div>{{ account.balance }}</div></td>
+    </tr>
+</table>
+<br>
+Zestawienie operacji:
+<table border="1">
+    <tr>
+        <td><b>Od:</b></td>
+        <td><b>Do:</b></td>
+        <td><b>Tytułem:</b></td>
+        <td><b>Kwota:</b></td>
+        <td><b>Data:</b></td>
+    </tr>
+	{% for op in operations %}
+    <tr>
+        <td>{{ op.SourceAccount.owner }}</td>
+        <td>{{ op.TargetAccount.owner }}</td>
+        <td>{{ op.title }}</td>
+        <td>{{ op.amount }}</td>
+        <td>{{ op.created }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+<a href="/blog/transfer">[Wykonaj przelew]</a>
+
+{% endif %}
+
+{% endblock %}

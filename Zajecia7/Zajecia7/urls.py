@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'Zajecia7.views.home', name='home'),
     url(r'^blog/', include('blog.urls')),
+    (r'^$', redirect_page ),
 )

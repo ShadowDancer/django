@@ -14,10 +14,10 @@ class Account(models.Model):
 class Operation(models.Model):
     SourceAccount = models.ForeignKey(Account, related_name='SourceAcc')
     TargetAccount = models.ForeignKey(Account, related_name='TargetAcc')
-    target = models.CharField(max_length=60)
     title = models.TextField()
     amount = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
 
     def __unicode__(self):
         return self.title

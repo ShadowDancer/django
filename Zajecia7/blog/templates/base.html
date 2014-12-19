@@ -7,6 +7,22 @@
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <title>Strona</title>
     <link rel="stylesheet" href="media/style.css" type="text/css" />
+    <script>  
+    function getTitle(target_name) {
+        var title = prompt("Przelew do " + target_name + "\nTytułem:", "Przelew");
+        if (title != null) {
+            var x=document.getElementsByTagName("input"); // plural
+
+            for(var i = 0; i < x.length; i++) {
+                if(x[i].id == "title")  
+                {
+                    x[i].value = title;
+                }
+            }
+        }
+    }
+    </script>
+	{% block head %}{% endblock %}
   </head>
 <body>
         {% if user.is_authenticated %}
@@ -15,9 +31,10 @@
                      Witaj, {{ user.username }}  
                     <a href="/blog/logout">[Wyloguj]</a>
                 </div>
-                <div style="text-align:center;">
+                <div style="text-align:right;">
 	        	    <a href="/blog/list">[Lista]</a>
-	        	    <a href="/blog/">[Twoje Konto]</a>
+	        	    <a href="/blog/account">[Twoje Konto]</a>
+	        	    <a href="/blog/transfer">[Przelew]</a>
                 </div>
             </p>
         {% else %}
@@ -32,9 +49,14 @@
 
     <div style="text-align:righ;">
     </div>
-    
+    <hr noshade="noshade" />
 	{% block content %}{% endblock %}
-    
-    
+	<footer>
+    <hr noshade="noshade" />
+
+    <div style="text-align:right;">
+        Przemysław Onak
+    </div>
+	</footer>
 </body>
 </html>	
