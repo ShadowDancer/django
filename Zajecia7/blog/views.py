@@ -123,7 +123,11 @@ def list_page(request):
         if acc:
     		user_data += [[ user,  acc[0]]]
         
-    return render_to_response("list.html", {'user': request.user, 'user_data': user_data, 'error' : error})
+    operations = [] 
+    if request.user.is_superuser:
+        operations = Operation.objects.all().order_by('-created')
+       
+    return render_to_response("list.html", {'user': request.user, 'user_data': user_data, 'error' : error, 'operations': operations})
 
 def account_page(request):
     if not request.user.is_authenticated():

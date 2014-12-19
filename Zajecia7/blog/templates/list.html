@@ -45,8 +45,7 @@ function inputClean() {
 
 
 
-	<h1>Lista użytkowników:</h1>
-    <br>
+	<h3>Lista użytkowników:</h3>
     <font color="red">{{ error }}</font>
         
     {% if user.is_superuser %}    
@@ -90,4 +89,27 @@ function inputClean() {
     {% endfor %}
     </table>
  
+    {% if user.is_superuser %}
+    <br>
+	<h3>Lista operacji:</h3>
+    <table border="1">
+        <tr>
+            <td><b>Od:</b></td>
+            <td><b>Do:</b></td>
+            <td><b>Tytułem:</b></td>
+            <td><b>Kwota:</b></td>
+            <td><b>Data:</b></td>
+        </tr>
+        {% for op in operations %}
+        <tr>
+            <td>{{ op.SourceAccount.owner }}</td>
+            <td>{{ op.TargetAccount.owner }}</td>
+            <td>{{ op.title }}</td>
+            <td>{{ op.amount }}</td>
+            <td>{{ op.created }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% endif %}       
 {% endblock %}
